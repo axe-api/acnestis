@@ -16,5 +16,13 @@
   "bugs": {
     "url": "https://github.com/ozziest/render-engine/issues"
   },
-  "homepage": "https://github.com/ozziest/render-engine#readme"
+  "homepage": "https://github.com/ozziest/render-engine#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "glob": "^8.1.0",
+    "showdown": "^2.1.0",
+    "slugify": "^1.6.5"
+  }
 }
