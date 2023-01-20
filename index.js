@@ -122,7 +122,11 @@ const moveAssets = (distDir) => {
     fs.mkdirSync(assetPath, { recursive: true });
   }
 
-  const assetList = ["styles.css"];
+  const assetList = [
+    "styles.css",
+    "highlight.min.js",
+    "tokyo-night-dark.min.css",
+  ];
 
   for (const asset of assetList) {
     const currentPath = path.join(__dirname, "assets", asset);
