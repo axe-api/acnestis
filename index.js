@@ -140,7 +140,12 @@ const renderItemTitles = (items) => {
     .map((item) => {
       const slug = item.head.slug.replaceAll("/", "");
       const link = path.join("/posts", item.head.folderPrefix, slug + ".html");
-      return `<a class="article-link" href="${link}">${item.head.title}</a>`;
+      return `
+      <div class="link-container">
+        <a class="article-link" href="${link}">${item.head.title}</a>
+        <div class="link-date">${item.head.jsDate.format("DD MMM")}</div>
+      </div>
+      `;
     })
     .join("\n");
 };
