@@ -103,6 +103,22 @@ const getTemplates = async () => {
   });
 };
 
+const moveAssets = (distDir) => {
+  const assetPath = path.join(distDir, "assets");
+  // Setting the target directory
+  if (!fs.existsSync(assetPath)) {
+    fs.mkdirSync(assetPath, { recursive: true });
+  }
+
+  const assetList = ["styles.css"];
+
+  for (const asset of assetList) {
+    const currentPath = path.join(__dirname, "assets", asset);
+    const targetPath = path.join(assetPath, asset);
+    fs.copyFileSync(currentPath, targetPath);
+  }
+};
+
 const main = async ({ root, posts }) => {
   const start = new Date();
 
@@ -120,10 +136,12 @@ const main = async ({ root, posts }) => {
   for (const file of files) {
     const slug = file.head.slug.replaceAll("/", "");
     const htlmName = path.join(distDir, "posts", slug + ".html");
-    const buildContent = POST_TEMPLATE.replaceAll("{BODY}", file.html);
+    const buildContent = POST_TEMPLATE.replaceAll(
+      "{BODY}",
+      file.html
+    ).replaceAll("{TITLE}", file.head.title);
     fs.writeFileSync(htlmName, buildContent);
     imageFiles.push(...extractImageUrls(file.html));
-    console.log(slug);
   }
 
   imageFiles = imageFiles.filter(
@@ -145,6 +163,8 @@ const main = async ({ root, posts }) => {
     // Copying the file
     fs.copyFileSync(currentPath, newPath);
   }
+
+  moveAssets(distDir);
 
   const end = new Date() - start;
   console.info("Execution time: %dms", end);
