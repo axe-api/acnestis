@@ -78,6 +78,8 @@ const toFileObject = (fullpath) => {
   const year = date.format("YYYY");
   const month = date.format("MM");
   const day = date.format("DD");
+  head.jsDate = date;
+  head.year = year;
   head.folderPrefix = path.join(year, month, day);
 
   return {
@@ -129,6 +131,46 @@ const moveAssets = (distDir) => {
   }
 };
 
+const renderItemTitles = (items) => {
+  return items
+    .map((item) => {
+      const slug = item.head.slug.replaceAll("/", "");
+      const link = path.join("/posts", item.head.folderPrefix, slug + ".html");
+      return `<a class="article-link" href="${link}">${item.head.title}</a>`;
+    })
+    .join("\n");
+};
+
+const renderByYear = (year, items) => {
+  return `
+    <div class="year-title">${year.trim()}</div>
+    <div class="year-links">
+      ${renderItemTitles(items)}
+    </div>
+  `;
+};
+
+const renderPostTemplate = (files) => {
+  files.sort((a, b) => b.head.jsDate.unix() - a.head.jsDate.unix());
+
+  const groupByYears = files.reduce((group, file) => {
+    const { head } = file;
+    group[head.year] = group[head.year] ?? [];
+    group[head.year].push(file);
+    return group;
+  }, {});
+
+  let result = "";
+
+  for (const year of Object.keys(groupByYears).sort((a, b) => b - a)) {
+    const items = groupByYears[year];
+
+    result += renderByYear(year, items);
+  }
+
+  return result;
+};
+
 const main = async ({ root, posts }) => {
   const start = new Date();
 
@@ -139,6 +181,8 @@ const main = async ({ root, posts }) => {
 
   const TEMPLATES = await getTemplates();
   const POST_TEMPLATE = TEMPLATES.find((i) => i.name === "post.html").content;
+  const INDEX_TEMPLATE = TEMPLATES.find((i) => i.name === "index.html").content;
+  const HEAD_TEMPLATE = TEMPLATES.find((i) => i.name === "_head.html").content;
 
   const files = (await getMarkdownFiles(posts)).map(toFileObject);
   let imageFiles = [];
@@ -158,10 +202,9 @@ const main = async ({ root, posts }) => {
       file.head.folderPrefix,
       slug + ".html"
     );
-    const buildContent = POST_TEMPLATE.replaceAll(
-      "{BODY}",
-      file.html
-    ).replaceAll("{TITLE}", file.head.title);
+    const buildContent = POST_TEMPLATE.replaceAll("{HEAD}", HEAD_TEMPLATE)
+      .replaceAll("{BODY}", file.html)
+      .replaceAll("{TITLE}", file.head.title);
     fs.writeFileSync(fileName, buildContent);
     imageFiles.push(...extractImageUrls(file.html));
   }
@@ -187,6 +230,12 @@ const main = async ({ root, posts }) => {
   }
 
   moveAssets(distDir);
+
+  // Setting index
+  const content = INDEX_TEMPLATE.replaceAll("{HEAD}", HEAD_TEMPLATE)
+    .replaceAll("{TITLE}", "Ozgur Adem Isikli")
+    .replaceAll("{POSTS}", renderPostTemplate(files));
+  fs.writeFileSync(path.join(distDir, "index.html"), content);
 
   const end = new Date() - start;
   console.info("Execution time: %dms", end);
