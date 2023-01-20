@@ -3,6 +3,7 @@ const slugify = require("slugify");
 const fs = require("fs");
 const glob = require("glob");
 const showdown = require("showdown");
+const cheerio = require("cheerio");
 const converter = new showdown.Converter();
 
 const getMarkdownFiles = async (src) => {
@@ -17,6 +18,15 @@ const getMarkdownFiles = async (src) => {
   });
 };
 
+function extractImageUrls(html) {
+  const $ = cheerio.load(html);
+  const imageUrls = [];
+  $("img").each((i, elem) => {
+    imageUrls.push($(elem).attr("src"));
+  });
+  return imageUrls;
+}
+
 const splitBlogPost = (fileContent) => {
   const head = {};
   let content = fileContent;
@@ -28,7 +38,7 @@ const splitBlogPost = (fileContent) => {
     indices.push(result.index);
   }
 
-  if (indices.length > 2) {
+  if (indices.length >= 2) {
     const [start, end] = indices;
     const headAsString = fileContent.substr(start + 3, end - 3);
     const lines = headAsString.split("\n").filter((line) => line);
@@ -93,7 +103,7 @@ const getTemplates = async () => {
   });
 };
 
-const main = async ({ root }) => {
+const main = async ({ root, posts }) => {
   const start = new Date();
 
   const distDir = path.join(__dirname, "dist");
@@ -104,17 +114,43 @@ const main = async ({ root }) => {
   const TEMPLATES = await getTemplates();
   const POST_TEMPLATE = TEMPLATES.find((i) => i.name === "post.html").content;
 
-  const files = (await getMarkdownFiles(root)).map(toFileObject);
+  const files = (await getMarkdownFiles(posts)).map(toFileObject);
+  let imageFiles = [];
 
   for (const file of files) {
     const slug = file.head.slug.replaceAll("/", "");
     const htlmName = path.join(distDir, "posts", slug + ".html");
     const buildContent = POST_TEMPLATE.replaceAll("{BODY}", file.html);
     fs.writeFileSync(htlmName, buildContent);
+    imageFiles.push(...extractImageUrls(file.html));
+    console.log(slug);
+  }
+
+  imageFiles = imageFiles.filter(
+    (path) => !path.includes("https://") && !path.includes("http://")
+  );
+  for (const imageFile of imageFiles) {
+    // The current and the new file path
+    const currentPath = `${root}${imageFile}`;
+    const newPath = `${distDir}${imageFile}`;
+
+    // Target directory
+    const newDirectory = path.dirname(newPath);
+
+    // Setting the target directory
+    if (!fs.existsSync(newDirectory)) {
+      fs.mkdirSync(newDirectory, { recursive: true });
+    }
+
+    // Copying the file
+    fs.copyFileSync(currentPath, newPath);
   }
 
   const end = new Date() - start;
   console.info("Execution time: %dms", end);
 };
 
-main({ root: path.join(__dirname, "ozziest.github.io", "_posts") });
+main({
+  root: path.join(__dirname, "ozziest.github.io"),
+  posts: path.join(__dirname, "ozziest.github.io", "_posts"),
+});
