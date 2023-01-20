@@ -5,7 +5,7 @@ const glob = require("glob");
 const showdown = require("showdown");
 const converter = new showdown.Converter();
 
-const getFileNames = async (src) => {
+const getMarkdownFiles = async (src) => {
   return new Promise((resolve) => {
     glob(path.join(src, "/**/*.md"), (err, files) => {
       if (err) {
@@ -28,7 +28,7 @@ const splitBlogPost = (fileContent) => {
     indices.push(result.index);
   }
 
-  if (indices.length === 2) {
+  if (indices.length > 2) {
     const [start, end] = indices;
     const headAsString = fileContent.substr(start + 3, end - 3);
     const lines = headAsString.split("\n").filter((line) => line);
@@ -104,14 +104,11 @@ const main = async ({ root }) => {
   const TEMPLATES = await getTemplates();
   const POST_TEMPLATE = TEMPLATES.find((i) => i.name === "post.html").content;
 
-  const files = (await getFileNames(root)).map(toFileObject);
+  const files = (await getMarkdownFiles(root)).map(toFileObject);
 
   for (const file of files) {
-    const htlmName = path.join(
-      distDir,
-      "posts",
-      file.head.slug.replaceAll("/", "") + ".html"
-    );
+    const slug = file.head.slug.replaceAll("/", "");
+    const htlmName = path.join(distDir, "posts", slug + ".html");
     const buildContent = POST_TEMPLATE.replaceAll("{BODY}", file.html);
     fs.writeFileSync(htlmName, buildContent);
   }
