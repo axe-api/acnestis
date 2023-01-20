@@ -14,27 +14,6 @@ h6 {
   margin: auto;
 }
 
-blockquote {
-  border-left: 2px solid #ccc;
-  margin: 1.5em 10px;
-  padding: 0.5em 10px;
-  font-style: italic;
-  color: rgba(0, 0, 0, 0.5);
-}
-
-blockquote:before {
-  color: #ccc;
-  content: open-quote;
-  font-size: 4em;
-  line-height: 0.1em;
-  margin-right: 0.25em;
-  vertical-align: -0.4em;
-}
-
-blockquote p {
-  display: inline;
-}
-
 div.container {
   position: relative;
   width: 600px;
