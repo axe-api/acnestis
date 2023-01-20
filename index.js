@@ -4,6 +4,7 @@ const fs = require("fs");
 const glob = require("glob");
 const showdown = require("showdown");
 const cheerio = require("cheerio");
+const dayjs = require("dayjs");
 const converter = new showdown.Converter();
 
 const getMarkdownFiles = async (src) => {
@@ -43,7 +44,9 @@ const splitBlogPost = (fileContent) => {
     const headAsString = fileContent.substr(start + 3, end - 3);
     const lines = headAsString.split("\n").filter((line) => line);
     for (const line of lines) {
-      const [key, value] = line.split(":");
+      const splitterIndex = line.indexOf(":");
+      const key = line.substr(0, splitterIndex);
+      const value = line.substr(splitterIndex + 1);
       if (key && value) {
         head[key] = value;
       }
@@ -69,6 +72,13 @@ const splitBlogPost = (fileContent) => {
 const toFileObject = (fullpath) => {
   const fileContent = fs.readFileSync(fullpath, "utf8");
   const { head, content } = splitBlogPost(fileContent);
+
+  const stringDate = head.date.trim().substr(0, 10);
+  const date = dayjs(stringDate);
+  const year = date.format("YYYY");
+  const month = date.format("MM");
+  const day = date.format("DD");
+  head.folderPrefix = path.join(year, month, day);
 
   return {
     fullpath,
@@ -133,14 +143,26 @@ const main = async ({ root, posts }) => {
   const files = (await getMarkdownFiles(posts)).map(toFileObject);
   let imageFiles = [];
 
+  files.forEach((file) => {
+    const folderName = path.join(distDir, "posts", file.head.folderPrefix);
+    if (!fs.existsSync(folderName)) {
+      fs.mkdirSync(folderName, { recursive: true });
+    }
+  });
+
   for (const file of files) {
     const slug = file.head.slug.replaceAll("/", "");
-    const htlmName = path.join(distDir, "posts", slug + ".html");
+    const fileName = path.join(
+      distDir,
+      "posts",
+      file.head.folderPrefix,
+      slug + ".html"
+    );
     const buildContent = POST_TEMPLATE.replaceAll(
       "{BODY}",
       file.html
     ).replaceAll("{TITLE}", file.head.title);
-    fs.writeFileSync(htlmName, buildContent);
+    fs.writeFileSync(fileName, buildContent);
     imageFiles.push(...extractImageUrls(file.html));
   }
 

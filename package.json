@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.12",
+    "dayjs": "^1.11.7",
     "glob": "^8.1.0",
     "showdown": "^2.1.0",
     "slugify": "^1.6.5"
