@@ -94,7 +94,6 @@ const renderIt = async ({
 
 module.exports = async (msg) => {
   const start = new Date();
-
   const logger = new Logger();
 
   const message = (msg?.content || "{}").toString();
