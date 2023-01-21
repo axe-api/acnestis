@@ -2,6 +2,7 @@ const path = require("path");
 const fs = require("fs");
 const cheerio = require("cheerio");
 const { minifyHTML } = require("./shared");
+const header = require("./header");
 
 const extractImageUrls = (html) => {
   const $ = cheerio.load(html);
@@ -24,6 +25,7 @@ module.exports = ({ distDirectory, files, POST_TEMPLATE, HEAD_TEMPLATE }) => {
       slug + ".html"
     );
     const buildContent = POST_TEMPLATE.replaceAll("{HEAD}", HEAD_TEMPLATE)
+      .replaceAll("{HEADER}", header("Özgür Adem IŞIKLI"))
       .replaceAll("{BODY}", file.html)
       .replaceAll("{TITLE}", file.head.title);
     fs.writeFileSync(fileName, minifyHTML(buildContent));

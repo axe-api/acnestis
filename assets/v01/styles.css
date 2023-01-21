@@ -21,6 +21,23 @@ h6 {
   margin: auto;
 }
 
+div.header {
+  width: 640px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+  padding: 16px 0px;
+  margin-bottom: 20px;
+}
+
+div.header > a {
+  font-family: "Merriweather";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+  color: rgba(0, 0, 0, 0.75);
+}
+
 div.container {
   position: relative;
   width: 640px;
@@ -52,7 +69,6 @@ a:hover {
 div.year-title {
   font-size: 18px;
   font-weight: 500;
-  margin-top: 20px;
   margin-bottom: 0px;
   color: rgba(0, 0, 0, 0.3);
 }
