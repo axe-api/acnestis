@@ -77,7 +77,6 @@ a.article-link {
   flex-grow: 2;
   height: 34px;
   overflow: hidden;
-  background: rgba(0, 0, 0, 0.7);
   background: linear-gradient(
     to right,
     rgba(0, 0, 0, 0.7) 0%,
@@ -90,13 +89,14 @@ a.article-link {
 
 a.article-link:hover {
   text-decoration: none;
-  background: rgba(0, 0, 0, 0.92);
   background: linear-gradient(
     to right,
     rgba(0, 0, 0, 0.92) 0%,
     rgba(0, 0, 0, 0.92) 80%,
     #fff 95%
   );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 code {
