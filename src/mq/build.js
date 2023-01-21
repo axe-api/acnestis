@@ -145,11 +145,28 @@ module.exports = async (msg) => {
 
     const end = new Date() - start;
     logger.success(`The blog has been generated: ${end}ms`);
+
+    // Updating the build logs
+    await buildService.updateBuild(buildUuid, {
+      status: "Success",
+      build_time: end,
+      logs: logger.get().join("\n"),
+    });
   } catch (error) {
     // Delete the repository
     await execute(`cd pipelines && rm -rf ${repositoryFolder}`);
 
     // Delete the built
     await execute(`cd dist && rm -rf ${repositoryFolder}`);
+
+    const end = new Date() - start;
+    logger.error(`ERROR: ${error.message} ${end}ms`);
+
+    // Updating the build logs
+    await buildService.updateBuild(buildUuid, {
+      status: "Fail",
+      build_time: end,
+      logs: logger.get().join("\n"),
+    });
   }
 };

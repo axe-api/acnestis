@@ -25,6 +25,14 @@ class Logger {
     this.logs.push(line);
   }
 
+  error(line) {
+    if (process.env.NODE_ENV !== "production") {
+      console.log(chalk.red(` [xBLOG] ${line}\n`));
+    }
+
+    this.logs.push(line);
+  }
+
   ok() {
     this.logs.push("OK!");
 

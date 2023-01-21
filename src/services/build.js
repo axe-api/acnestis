@@ -16,6 +16,17 @@ const createNewBuild = async (siteUuid) => {
   return buildUuid;
 };
 
+const updateBuild = async (uuid, data) => {
+  return await db
+    .table("builds")
+    .where("uuid", uuid)
+    .update({
+      ...data,
+      updated_at: new Date(),
+    });
+};
+
 module.exports = {
   createNewBuild,
+  updateBuild,
 };
