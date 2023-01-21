@@ -1,5 +1,6 @@
 const path = require("path");
 const fs = require("fs");
+const { minifyHTML } = require("./shared");
 
 const renderPostTemplate = (files) => {
   files.sort((a, b) => b.head.jsDate.unix() - a.head.jsDate.unix());
@@ -55,5 +56,5 @@ module.exports = ({ INDEX_TEMPLATE, HEAD_TEMPLATE, files, distDirectory }) => {
   const content = INDEX_TEMPLATE.replaceAll("{HEAD}", HEAD_TEMPLATE)
     .replaceAll("{TITLE}", "Ozgur Adem Isikli")
     .replaceAll("{POSTS}", renderPostTemplate(files));
-  fs.writeFileSync(path.join(distDirectory, "index.html"), content);
+  fs.writeFileSync(path.join(distDirectory, "index.html"), minifyHTML(content));
 };

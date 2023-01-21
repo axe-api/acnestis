@@ -1,6 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 const cheerio = require("cheerio");
+const { minifyHTML } = require("./shared");
 
 const extractImageUrls = (html) => {
   const $ = cheerio.load(html);
@@ -25,7 +26,7 @@ module.exports = ({ distDirectory, files, POST_TEMPLATE, HEAD_TEMPLATE }) => {
     const buildContent = POST_TEMPLATE.replaceAll("{HEAD}", HEAD_TEMPLATE)
       .replaceAll("{BODY}", file.html)
       .replaceAll("{TITLE}", file.head.title);
-    fs.writeFileSync(fileName, buildContent);
+    fs.writeFileSync(fileName, minifyHTML(buildContent));
     imageFiles.push(...extractImageUrls(file.html));
   }
 
