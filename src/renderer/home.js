@@ -35,7 +35,11 @@ const renderItemTitles = (items) => {
   return items
     .map((item) => {
       const slug = item.head.slug.replaceAll("/", "");
-      const link = path.join("/posts", item.head.folderPrefix, slug + ".html");
+      const link = path.join(
+        `/${process.env.XBLOG_DIST_POST_FOLDER}`,
+        item.head.folderPrefix,
+        slug + ".html"
+      );
       return `
       <div class="link-container">
         <a class="article-link" href="${link}">${item.head.title}</a>

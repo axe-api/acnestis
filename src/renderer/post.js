@@ -18,7 +18,7 @@ module.exports = ({ distDirectory, files, POST_TEMPLATE, HEAD_TEMPLATE }) => {
     const slug = file.head.slug.replaceAll("/", "");
     const fileName = path.join(
       distDirectory,
-      "posts",
+      process.env.XBLOG_DIST_POST_FOLDER,
       file.head.folderPrefix,
       slug + ".html"
     );

@@ -4,11 +4,13 @@ const images = require("./images");
 const markdown = require("./markdown");
 const prepare = require("./prepare");
 const render = require("./render");
+const setup = require("./setup");
 const templates = require("./templates");
 
 const main = async ({ rootDirectory, postDirectory, distDirectory }) => {
   const start = new Date();
 
+  setup();
   prepare.clearDistFolder(distDirectory);
   prepare.createDirectories(distDirectory);
 
