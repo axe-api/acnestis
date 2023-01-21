@@ -2,13 +2,13 @@ const path = require("path");
 const fs = require("fs");
 
 const moveImagesToDistDirectory = ({
-  rootDirectory,
+  repositoryDirectory,
   distDirectory,
   imageFiles,
 }) => {
   for (const imageFile of imageFiles) {
     // The current and the new file path
-    const currentPath = `${rootDirectory}${imageFile}`;
+    const currentPath = `${repositoryDirectory}${imageFile}`;
     const newPath = `${distDirectory}${imageFile}`;
 
     // Target directory
