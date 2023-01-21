@@ -1,4 +1,5 @@
 const minifier = require("html-minifier").minify;
+const CleanCSS = require("clean-css");
 
 const minifyHTML = (html) => {
   return minifier(html, {
@@ -11,6 +12,11 @@ const minifyHTML = (html) => {
   });
 };
 
+const minifyCSS = (css) => {
+  return new CleanCSS({}).minify(css);
+};
+
 module.exports = {
   minifyHTML,
+  minifyCSS,
 };

@@ -1,5 +1,6 @@
 const path = require("path");
 const fs = require("fs");
+const { minifyCSS } = require("./renderer/shared");
 
 const moveAssetsToDistDirectory = (distDirectory) => {
   const assetPath = path.join(
@@ -26,7 +27,13 @@ const moveAssetsToDistDirectory = (distDirectory) => {
       asset
     );
     const targetPath = path.join(assetPath, asset);
-    fs.copyFileSync(currentPath, targetPath);
+    const content = fs.readFileSync(currentPath, "utf-8");
+
+    if (targetPath.includes(".css") && !targetPath.includes(".min.css")) {
+      fs.writeFileSync(targetPath, minifyCSS(content).styles);
+    } else {
+      fs.writeFileSync(targetPath, content);
+    }
   }
 };
 
