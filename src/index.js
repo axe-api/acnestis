@@ -13,50 +13,61 @@ const main = async ({ rootDirectory, postDirectory, distDirectory }) => {
 
   const logger = new Logger();
 
+  logger.log("Configurating setup");
   setup();
-  logger.log("Setup has been completed");
+  logger.ok();
 
+  logger.log("Preparing directories");
   prepare.clearDistFolder(distDirectory);
   prepare.createDirectories(distDirectory);
-  logger.log("Directories has been set");
+  logger.ok();
 
+  logger.log("Loading templates");
   const { POST_TEMPLATE, INDEX_TEMPLATE, HEAD_TEMPLATE } = await templates();
-  logger.log("Templates are loaded");
+  logger.ok();
 
-  const files = await markdown.getMarkdownFiles(postDirectory);
   logger.log("Blog post files have been read");
+  const files = await markdown.getMarkdownFiles(postDirectory);
+  logger.ok();
 
-  render.createDateDirectories(distDirectory, files);
   logger.log("Blog directories have been created");
+  render.createDateDirectories(distDirectory, files);
+  logger.ok();
 
+  logger.log("Blog posts have been rendered");
   const imageFiles = render.createBlogPosts({
     distDirectory,
     files,
     POST_TEMPLATE,
     HEAD_TEMPLATE,
   });
-  logger.log("Blog posts have been rendered");
+  logger.ok();
 
+  logger.log("Image files have been moved");
   images.moveImagesToDistDirectory({
     rootDirectory,
     distDirectory,
     imageFiles,
   });
-  logger.log("Image files have been moved");
+  logger.ok();
 
-  assets.moveAssetsToDistDirectory(distDirectory);
   logger.log("Shared assets have been set");
+  assets.moveAssetsToDistDirectory(distDirectory);
+  logger.ok();
 
+  logger.log("Index page has been created");
   render.createIndexPage({
     INDEX_TEMPLATE,
     HEAD_TEMPLATE,
     files,
     distDirectory,
   });
-  logger.log("Index page has been created");
+  logger.ok();
 
   const end = new Date() - start;
-  console.info("Execution time: %dms", end);
+  logger.success(`The blog has been generated: ${end}ms`);
+
+  return logger.get();
 };
 
 main({

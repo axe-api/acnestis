@@ -3,10 +3,33 @@ const chalk = require("chalk");
 class Logger {
   logs = [];
 
-  log(line) {
-    this.logs.push(line);
+  constructor() {
     if (process.env.NODE_ENV !== "production") {
-      console.log(chalk.yellow(` [xBLOG] ${line}`));
+      console.log("");
+    }
+  }
+
+  log(line) {
+    if (process.env.NODE_ENV !== "production") {
+      process.stdout.write(chalk.cyan(` [xBLOG] ${line}...`));
+    }
+
+    this.logs.push(line);
+  }
+
+  success(line) {
+    if (process.env.NODE_ENV !== "production") {
+      console.log(chalk.green(` [xBLOG] ${line}\n`));
+    }
+
+    this.logs.push(line);
+  }
+
+  ok() {
+    this.logs.push("OK!");
+
+    if (process.env.NODE_ENV !== "production") {
+      console.log(chalk.green("OK!"));
     }
   }
 
