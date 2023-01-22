@@ -23,11 +23,14 @@
     "nodemon": "^2.0.20"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.254.0",
     "amqplib": "^0.10.3",
+    "aws-sdk": "^2.1299.0",
     "chalk": "^4.1.2",
     "cheerio": "^1.0.0-rc.12",
     "clean-css": "^5.3.2",
     "dayjs": "^1.11.7",
+    "dotenv": "^16.0.3",
     "glob": "^8.1.0",
     "html-minifier": "^4.0.0",
     "knex": "^2.4.1",

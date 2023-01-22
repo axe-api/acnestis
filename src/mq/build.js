@@ -6,6 +6,7 @@ const Logger = require("../logger");
 const markdown = require("../markdown");
 const prepare = require("../prepare");
 const render = require("../render");
+const s3 = require("../s3");
 const setup = require("../setup");
 const templates = require("../templates");
 const buildService = require("../services/build");
@@ -107,6 +108,8 @@ module.exports = async (msg) => {
 
   const { repository } = site;
   const repositoryFolder = `build-${buildUuid}`;
+  const distDirectory = path.join(process.cwd(), "dist", repositoryFolder);
+  const s3Root = path.join(user.username, site.s3_bucket_name);
 
   try {
     logger.log("Cloning the repository");
@@ -125,13 +128,17 @@ module.exports = async (msg) => {
         repositoryFolder,
         "_posts"
       ),
-      distDirectory: path.join(process.cwd(), "dist", repositoryFolder),
+      distDirectory,
       repositoryDirectory: path.join(
         process.cwd(),
         "pipelines",
         repositoryFolder
       ),
     });
+
+    logger.log("Pushing the file to server");
+    await s3.pushToS3({ distDirectory, s3Root });
+    logger.ok();
 
     logger.log("Deleting the repository");
     await execute(`cd pipelines && rm -rf ${repositoryFolder}`);
