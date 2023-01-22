@@ -137,7 +137,7 @@ module.exports = async (msg) => {
     });
 
     logger.log("Pushing the file to server");
-    await s3.pushToS3({ distDirectory, s3Root });
+    await s3.pushToS3({ logger, distDirectory, s3Root });
     logger.ok();
 
     logger.log("Deleting the repository");

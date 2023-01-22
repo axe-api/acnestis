@@ -17,6 +17,11 @@ class Logger {
     this.logs.push(line);
   }
 
+  dot() {
+    process.stdout.write(chalk.cyan("."));
+    this.logs.push(".");
+  }
+
   success(line) {
     if (process.env.NODE_ENV !== "production") {
       console.log(chalk.green(` [xBLOG] ${line}\n`));

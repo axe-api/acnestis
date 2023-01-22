@@ -41,14 +41,14 @@ const putS3Object = async ({ file, targetName }) => {
   }
 };
 
-const pushToS3 = async ({ distDirectory, s3Root }) => {
+const pushToS3 = async ({ logger, distDirectory, s3Root }) => {
   const files = await getAllFiles(distDirectory);
 
   for (const file of files) {
     // We need a new target name
     const targetName = path.join(s3Root, file.replaceAll(distDirectory, ""));
     // Just putting some pretty logs
-    process.stdout.write(chalk.cyan(`...`));
+    logger.dot();
     // Pushing to S3 Bucket
     await putS3Object({ file, targetName });
   }
