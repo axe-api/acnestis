@@ -109,7 +109,6 @@ module.exports = async (msg) => {
   const { repository } = site;
   const repositoryFolder = `build-${buildUuid}`;
   const distDirectory = path.join(process.cwd(), "dist", repositoryFolder);
-  const s3Root = path.join(user.username, site.s3_bucket_name);
 
   try {
     logger.log("Cloning the repository");
@@ -137,7 +136,7 @@ module.exports = async (msg) => {
     });
 
     logger.log("Pushing the file to server");
-    await s3.pushToS3({ logger, distDirectory, s3Root });
+    await s3.pushToS3({ logger, distDirectory, s3Root: site.s3_bucket_name });
     logger.ok();
 
     logger.log("Deleting the repository");
