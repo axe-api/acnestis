@@ -27,22 +27,29 @@ const getAllFiles = async (src) => {
 };
 
 const putS3Object = async ({ file, targetName }) => {
-  const fileStream = fs.createReadStream(file);
-  const data = await s3.send(
-    new PutObjectCommand({
-      Bucket: BUCKET_NAME,
-      Key: targetName,
-      Body: fileStream,
-    })
-  );
+  try {
+    const fileStream = fs.createReadStream(file);
+    await s3.send(
+      new PutObjectCommand({
+        Bucket: BUCKET_NAME,
+        Key: targetName,
+        Body: fileStream,
+      })
+    );
+  } catch (error) {
+    throw new Error(`File couldn't uploaded: ${targetName}`);
+  }
 };
 
 const pushToS3 = async ({ distDirectory, s3Root }) => {
   const files = await getAllFiles(distDirectory);
 
   for (const file of files) {
+    // We need a new target name
     const targetName = path.join(s3Root, file.replaceAll(distDirectory, ""));
+    // Just putting some pretty logs
     process.stdout.write(chalk.cyan(`...`));
+    // Pushing to S3 Bucket
     await putS3Object({ file, targetName });
   }
 };
