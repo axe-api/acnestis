@@ -1,24 +1,26 @@
 {
-  "name": "render-engine",
+  "name": "acnestis",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "src/cli.js",
+  "bin": {
+    "acnestis": "./src/cli.js"
+  },
   "scripts": {
     "dev": "nodemon index.js",
-    "build:size": "npx get-folder-size --folder=\"./dist\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:size": "npx get-folder-size --folder=\"./dist\""
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ozziest/render-engine.git"
+    "url": "git+https://github.com/ozziest/acnestis.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ozziest/render-engine/issues"
+    "url": "https://github.com/ozziest/acnestis/issues"
   },
-  "homepage": "https://github.com/ozziest/render-engine#readme",
+  "homepage": "https://github.com/ozziest/acnestis#readme",
   "devDependencies": {
     "nodemon": "^2.0.20"
   },
