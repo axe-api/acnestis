@@ -18,6 +18,7 @@ const createDateDirectories = (distDirectory, files) => {
 
 module.exports = {
   createDateDirectories,
+  createHTMLHead: renderer.head,
   createBlogPosts: renderer.post,
   createIndexPage: renderer.home,
 };

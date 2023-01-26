@@ -2,6 +2,7 @@
 
 const path = require("path");
 const assets = require("./assets");
+const config = require("./config");
 const images = require("./images");
 const Logger = require("./logger");
 const markdown = require("./markdown");
@@ -17,6 +18,8 @@ const renderIt = async ({
   repositoryDirectory,
 }) => {
   logger.log("Configurating setup");
+  const configuration = config.getConfig();
+
   setup();
   logger.ok();
 
@@ -43,6 +46,7 @@ const renderIt = async ({
     files,
     POST_TEMPLATE,
     HEAD_TEMPLATE,
+    configuration,
   });
   logger.ok();
 
@@ -60,6 +64,7 @@ const renderIt = async ({
 
   logger.log("Index page has been created");
   render.createIndexPage({
+    configuration,
     INDEX_TEMPLATE,
     HEAD_TEMPLATE,
     files,

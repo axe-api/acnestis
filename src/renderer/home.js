@@ -2,6 +2,7 @@ const path = require("path");
 const fs = require("fs");
 const { minifyHTML } = require("./shared");
 const header = require("./header");
+const head = require("./head");
 
 const renderPostTemplate = (files) => {
   files.sort((a, b) => b.head.jsDate.unix() - a.head.jsDate.unix());
@@ -53,10 +54,16 @@ const renderItemTitles = (items) => {
     .join("\n");
 };
 
-module.exports = ({ INDEX_TEMPLATE, HEAD_TEMPLATE, files, distDirectory }) => {
+module.exports = ({
+  configuration,
+  INDEX_TEMPLATE,
+  HEAD_TEMPLATE,
+  files,
+  distDirectory,
+}) => {
   // Setting index
-  const content = INDEX_TEMPLATE.replaceAll("{HEAD}", HEAD_TEMPLATE)
-    .replaceAll("{HEADER}", header("Özgür Adem IŞIKLI"))
+  const content = INDEX_TEMPLATE.replaceAll("{HEAD}", head(configuration))
+    .replaceAll("{HEADER}", header(configuration.title))
     .replaceAll("{POSTS}", renderPostTemplate(files));
   fs.writeFileSync(path.join(distDirectory, "index.html"), minifyHTML(content));
 };

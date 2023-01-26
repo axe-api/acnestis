@@ -3,6 +3,7 @@ const fs = require("fs");
 const cheerio = require("cheerio");
 const { minifyHTML } = require("./shared");
 const header = require("./header");
+const head = require("./head");
 
 const extractImageUrls = (html) => {
   const $ = cheerio.load(html);
@@ -13,7 +14,13 @@ const extractImageUrls = (html) => {
   return imageUrls;
 };
 
-module.exports = ({ distDirectory, files, POST_TEMPLATE, HEAD_TEMPLATE }) => {
+module.exports = ({
+  configuration,
+  distDirectory,
+  files,
+  POST_TEMPLATE,
+  HEAD_TEMPLATE,
+}) => {
   const imageFiles = [];
 
   for (const file of files) {
@@ -26,8 +33,16 @@ module.exports = ({ distDirectory, files, POST_TEMPLATE, HEAD_TEMPLATE }) => {
       "index.html"
     );
 
-    const buildContent = POST_TEMPLATE.replaceAll("{HEAD}", HEAD_TEMPLATE)
-      .replaceAll("{HEADER}", header("Özgür Adem IŞIKLI"))
+    const buildContent = POST_TEMPLATE.replaceAll(
+      "{HEAD}",
+      head({
+        title: `${configuration.title} - ${file.head.title}`,
+        description: `${configuration.description} ${file.head.title}`,
+        keywords: `${configuration.keywords} ${file.head.keywords}`,
+        author: file.head?.author ? file.head.author : configuration.author,
+      })
+    )
+      .replaceAll("{HEADER}", header(configuration.title))
       .replaceAll("{BODY}", file.html)
       .replaceAll("{TITLE}", file.head.title);
     fs.writeFileSync(fileName, minifyHTML(buildContent));

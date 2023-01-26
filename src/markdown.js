@@ -87,7 +87,7 @@ const splitBlogPost = (fileContent) => {
       date: head?.date,
       description: head?.description || null,
       meta: head?.meta,
-      tags: head?.tags,
+      keywords: head?.keywords || "",
     },
     content,
   };

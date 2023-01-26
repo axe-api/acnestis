@@ -2,7 +2,7 @@ node_modules
 ozziest.github.io
 dist
 .DS_Store
-
 .env
 _posts
 images
+config.yml
