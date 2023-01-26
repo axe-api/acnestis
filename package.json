@@ -1,6 +1,6 @@
 {
   "name": "acnestis",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "src/cli.js",
   "bin": {
@@ -14,9 +14,13 @@
     "type": "git",
     "url": "git+https://github.com/ozziest/acnestis.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "blog",
+    "site-generator",
+    "nodejs"
+  ],
+  "author": "Özgür Adem Işıklı <i.ozguradem@gmail.com>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ozziest/acnestis/issues"
   },
@@ -25,9 +29,6 @@
     "nodemon": "^2.0.20"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.254.0",
-    "amqplib": "^0.10.3",
-    "aws-sdk": "^2.1299.0",
     "chalk": "^4.1.2",
     "cheerio": "^1.0.0-rc.12",
     "clean-css": "^5.3.2",
@@ -36,11 +37,7 @@
     "glob": "^8.1.0",
     "html-minifier": "^4.0.0",
     "js-yaml": "^4.1.0",
-    "knex": "^2.4.1",
-    "mysql": "^2.18.1",
-    "shelljs": "^0.8.5",
     "showdown": "^2.1.0",
-    "slugify": "^1.6.5",
-    "uuid": "^9.0.0"
+    "slugify": "^1.6.5"
   }
 }
