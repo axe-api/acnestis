@@ -129,6 +129,7 @@ p {
   font-size: 22px;
   margin-top: 15px;
   margin-bottom: 15px;
+  text-align: justify;
 }
 
 blockquote {
