@@ -7,7 +7,8 @@ const createDateDirectories = (distDirectory, files) => {
     const folderName = path.join(
       distDirectory,
       file.head.category,
-      file.head.folderPrefix
+      file.head.folderPrefix,
+      file.head.slug
     );
     if (!fs.existsSync(folderName)) {
       fs.mkdirSync(folderName, { recursive: true });

@@ -69,7 +69,6 @@ const renderIt = async ({
 };
 
 const main = async () => {
-  console.log("Blog render");
   const logger = new Logger();
 
   const distDirectory = path.join(process.cwd(), "dist");

@@ -41,9 +41,8 @@ const renderItemTitles = (items) => {
         "/",
         item.head.category,
         item.head.folderPrefix,
-        slug + ".html"
+        slug + "/"
       );
-      console.log(item.head.folderPrefix);
       return `
       <div class="link-container">
         <a class="article-link" href="${link}">${item.head.title}</a>

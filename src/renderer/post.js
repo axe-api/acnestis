@@ -22,7 +22,8 @@ module.exports = ({ distDirectory, files, POST_TEMPLATE, HEAD_TEMPLATE }) => {
       distDirectory,
       file.head.category,
       file.head.folderPrefix,
-      slug + ".html"
+      slug,
+      "index.html"
     );
 
     const buildContent = POST_TEMPLATE.replaceAll("{HEAD}", HEAD_TEMPLATE)
