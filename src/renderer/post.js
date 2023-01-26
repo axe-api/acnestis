@@ -20,10 +20,11 @@ module.exports = ({ distDirectory, files, POST_TEMPLATE, HEAD_TEMPLATE }) => {
     const slug = file.head.slug.replaceAll("/", "");
     const fileName = path.join(
       distDirectory,
-      process.env.XBLOG_DIST_POST_FOLDER,
+      file.head.category,
       file.head.folderPrefix,
       slug + ".html"
     );
+
     const buildContent = POST_TEMPLATE.replaceAll("{HEAD}", HEAD_TEMPLATE)
       .replaceAll("{HEADER}", header("Özgür Adem IŞIKLI"))
       .replaceAll("{BODY}", file.html)

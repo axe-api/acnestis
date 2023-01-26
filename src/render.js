@@ -6,7 +6,7 @@ const createDateDirectories = (distDirectory, files) => {
   files.forEach((file) => {
     const folderName = path.join(
       distDirectory,
-      process.env.XBLOG_DIST_POST_FOLDER,
+      file.head.category,
       file.head.folderPrefix
     );
     if (!fs.existsSync(folderName)) {

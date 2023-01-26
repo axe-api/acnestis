@@ -6,7 +6,7 @@ const clearDistFolder = (distDirectory) => {
 };
 
 const createDirectories = (distDirectory) => {
-  fs.mkdirSync(path.join(distDirectory, process.env.XBLOG_DIST_POST_FOLDER), {
+  fs.mkdirSync(distDirectory, {
     recursive: true,
   });
 };

@@ -71,6 +71,15 @@ const splitBlogPost = (fileContent) => {
   return {
     head: {
       title,
+      category: head?.categories
+        ? head.categories
+            .replaceAll("[", "")
+            .replaceAll("]", "")
+            .toLowerCase()
+            .split(",")
+            .map((item) => slugify(item.trim()))
+            .join("/")
+        : "",
       slug: slugify(title, { lower: true, strict: true }),
       date: head?.date,
       description: head?.description || null,
