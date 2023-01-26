@@ -1,4 +1,4 @@
 {
   "ext": "js css html",
-  "ignore": ["dist/**/*", "pipelines/**/*"]
+  "ignore": ["dist/**/*"]
 }
