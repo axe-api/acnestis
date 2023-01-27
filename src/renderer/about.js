@@ -3,6 +3,7 @@ const fs = require("fs");
 const showdown = require("showdown");
 const head = require("./head");
 const header = require("./header");
+const { minifyHTML } = require("./shared");
 
 const converter = new showdown.Converter();
 
@@ -25,5 +26,8 @@ module.exports = ({ configuration, distDirectory }) => {
 
   const targetDirectory = path.join(distDirectory, "about");
   fs.mkdirSync(targetDirectory);
-  fs.writeFileSync(path.join(targetDirectory, "index.html"), builded);
+  fs.writeFileSync(
+    path.join(targetDirectory, "index.html"),
+    minifyHTML(builded)
+  );
 };

@@ -1,11 +1,20 @@
+:root {
+  --link-color: #007fc5;
+  --white: rgba(255, 255, 255, 0.95);
+  --light-gray: rgba(0, 0, 0, 0.05);
+  --gray: rgba(0, 0, 0, 0.3);
+  --dark-black: rgba(0, 0, 0, 0.75);
+  --pure-black: rgba(0, 0, 0, 0.9);
+}
+
 body {
   font-size: 20px;
   font-weight: 400;
   font-family: Times New Roman, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "1lvetica Neue",
     sans-serif;
-  background: rgba(255, 255, 255, 0.98);
-  color: rgba(0, 0, 0, 0.7);
+  background: var(--white);
+  color: var(--dark-black);
   line-height: 1.5;
   margin: 0px;
 }
@@ -17,7 +26,7 @@ h4,
 h5,
 h6 {
   font-weight: 500;
-  color: rgba(0, 0, 0, 0.75);
+  color: var(--dark-black);
   width: 700px;
   left: 0px;
   right: 0px;
@@ -30,7 +39,7 @@ div.header-box {
   top: 0px;
   left: 0px;
   width: 100%;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+  box-shadow: var(--light-gray) 0px 1px 2px 0px;
   background-color: white;
   z-index: 999999;
 }
@@ -63,7 +72,7 @@ div.header-blur {
 div.header > a.about {
   font-size: 18px;
   font-weight: 500;
-  color: rgba(0, 0, 0, 0.72);
+  color: var(--dark-black);
 }
 
 div.header > a.about:hover {
@@ -74,13 +83,13 @@ div.header > a {
   font-style: normal;
   font-weight: 700;
   font-size: 26px;
-  color: rgba(0, 0, 0, 0.72);
+  color: var(--dark-black);
   transition: all 100ms;
 }
 
 div.header > a:hover {
   text-decoration: none;
-  color: rgba(0, 0, 0, 0.9);
+  color: var(--pure-black);
 }
 
 div.content-container {
@@ -110,14 +119,14 @@ img {
 }
 
 a {
-  color: #007fc5;
+  color: var(--link-color);
   text-decoration: none;
   cursor: pointer;
   transition: all 100ms;
 }
 
 a:hover {
-  color: rgba(0, 0, 0, 0.82);
+  color: var(--dark-black);
   text-decoration: underline;
 }
 
@@ -125,7 +134,7 @@ div.year-title {
   font-size: 18px;
   font-weight: 500;
   margin-bottom: 0px;
-  color: rgba(0, 0, 0, 0.3);
+  color: var(--gray);
 }
 
 div.year-links {
@@ -141,7 +150,7 @@ div.link-container {
 }
 
 div.link-date {
-  color: rgba(0, 0, 0, 0.3);
+  color: var(--gray);
   white-space: nowrap;
 }
 
@@ -152,8 +161,8 @@ a.article-link {
   overflow: hidden;
   background: linear-gradient(
     to right,
-    rgba(0, 0, 0, 0.7) 0%,
-    rgba(0, 0, 0, 0.7) 80%,
+    var(--dark-black) 0%,
+    var(--dark-black) 80%,
     #fff 95%
   );
   -webkit-background-clip: text;
@@ -164,12 +173,12 @@ a.article-link:hover {
   text-decoration: none;
   background: linear-gradient(
     to right,
-    rgba(0, 0, 0, 0.92) 0%,
-    rgba(0, 0, 0, 0.92) 80%,
+    var(--pure-black) 0%,
+    var(--pure-black) 80%,
     #fff 95%
   );
   -webkit-background-clip: text;
-  -webkit-text-fill-color: #007fc5;
+  -webkit-text-fill-color: var(--link-color);
 }
 
 code {
@@ -187,7 +196,7 @@ p {
 blockquote {
   font-style: italic;
   margin: 0px;
-  border-left: 4px solid rgba(230, 230, 230);
+  border-left: 4px solid var(--light-gray);
   padding-left: 10px;
 }
 
@@ -200,13 +209,13 @@ blockquote > p {
 h1 {
   text-align: center;
   line-height: 1.2;
-  color: #007fc5;
+  color: var(--link-color);
   margin-top: 230px;
   margin-bottom: 5px;
 }
 
 div.post-date {
-  color: rgba(0, 0, 0, 0.2);
+  color: var(--gray);
   font-size: 22px;
   text-align: center;
   margin-bottom: 140px;
