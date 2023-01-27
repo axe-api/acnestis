@@ -3,6 +3,7 @@ const fs = require("fs");
 const showdown = require("showdown");
 const head = require("./head");
 const header = require("./header");
+const footer = require("./footer");
 const { minifyHTML } = require("./shared");
 
 const converter = new showdown.Converter();
@@ -22,7 +23,8 @@ module.exports = ({ configuration, distDirectory }) => {
   const builded = template
     .replace("{HEAD}", head(configuration))
     .replaceAll("{HEADER}", header(configuration.title))
-    .replaceAll("{POSTS}", content);
+    .replaceAll("{POSTS}", content)
+    .replaceAll("{FOOTER}", footer({ configuration }));
 
   const targetDirectory = path.join(distDirectory, "about");
   fs.mkdirSync(targetDirectory);

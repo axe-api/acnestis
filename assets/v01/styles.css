@@ -236,6 +236,19 @@ li {
   font-size: 22px;
 }
 
+footer {
+  width: 700px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+  padding: 50px 0px 200px 0px;
+  color: var(--dark-black);
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  font-style: italic;
+}
+
 @media only screen and (max-width: 768px) {
   body {
     margin: 0px;

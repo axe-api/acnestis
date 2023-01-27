@@ -3,6 +3,7 @@ const fs = require("fs");
 const { minifyHTML } = require("./shared");
 const header = require("./header");
 const head = require("./head");
+const footer = require("./footer");
 
 const renderPostTemplate = (files) => {
   files.sort((a, b) => b.head.jsDate.unix() - a.head.jsDate.unix());
@@ -64,6 +65,7 @@ module.exports = ({
   // Setting index
   const content = INDEX_TEMPLATE.replaceAll("{HEAD}", head(configuration))
     .replaceAll("{HEADER}", header(configuration.title))
-    .replaceAll("{POSTS}", renderPostTemplate(files));
+    .replaceAll("{POSTS}", renderPostTemplate(files))
+    .replaceAll("{FOOTER}", footer({ configuration }));
   fs.writeFileSync(path.join(distDirectory, "index.html"), minifyHTML(content));
 };

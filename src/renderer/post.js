@@ -4,6 +4,7 @@ const cheerio = require("cheerio");
 const { minifyHTML } = require("./shared");
 const header = require("./header");
 const head = require("./head");
+const footer = require("./footer");
 
 const extractImageUrls = (html) => {
   const $ = cheerio.load(html);
@@ -44,7 +45,8 @@ module.exports = ({
     )
       .replaceAll("{HEADER}", header(configuration.title))
       .replaceAll("{BODY}", file.html)
-      .replaceAll("{TITLE}", file.head.title);
+      .replaceAll("{TITLE}", file.head.title)
+      .replaceAll("{FOOTER}", footer({ configuration }));
     fs.writeFileSync(fileName, minifyHTML(buildContent));
     imageFiles.push(...extractImageUrls(file.html));
   }
