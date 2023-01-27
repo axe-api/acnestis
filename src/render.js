@@ -21,4 +21,5 @@ module.exports = {
   createHTMLHead: renderer.head,
   createBlogPosts: renderer.post,
   createIndexPage: renderer.home,
+  createAboutPage: renderer.about,
 };

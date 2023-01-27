@@ -8,5 +8,12 @@ module.exports = (title) => {
     "_header.html"
   );
   const template = fs.readFileSync(templatePath, "utf-8");
-  return template.replaceAll("{TITLE}", title);
+  const aboutExists = fs.existsSync(path.join(process.cwd(), "about.md"));
+
+  return template
+    .replaceAll("{TITLE}", title)
+    .replaceAll(
+      "{ABOUT_LINK}",
+      aboutExists ? `<a class="about" href="/about">About</a>` : ""
+    );
 };

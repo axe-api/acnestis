@@ -98,7 +98,9 @@ div.container {
   overflow: hidden;
 }
 
-div.container > h2:first-child {
+div.container > h2:first-child,
+div.container > h3:first-child,
+div.container > h4:first-child {
   margin-top: 20px;
 }
 

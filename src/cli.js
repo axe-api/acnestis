@@ -71,6 +71,16 @@ const renderIt = async ({
     distDirectory,
   });
   logger.ok();
+
+  logger.log("Creating about page");
+  render.createAboutPage({
+    configuration,
+    INDEX_TEMPLATE,
+    HEAD_TEMPLATE,
+    files,
+    distDirectory,
+  });
+  logger.ok();
 };
 
 const main = async () => {
