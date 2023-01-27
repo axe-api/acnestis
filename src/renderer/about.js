@@ -16,7 +16,7 @@ module.exports = ({ configuration, distDirectory }) => {
 
   const content = converter.makeHtml(fs.readFileSync(aboutPage, "utf-8"));
   const template = fs.readFileSync(
-    path.join(process.cwd(), process.env.XBLOG_TEMPLATE_FOLDER, "index.html"),
+    path.join(process.env.XBLOG_TEMPLATE_FOLDER, "index.html"),
     "utf-8"
   );
 

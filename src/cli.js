@@ -11,6 +11,8 @@ const render = require("./render");
 const setup = require("./setup");
 const templates = require("./templates");
 
+process.env.ACNESTIS_ROOT = path.join(__dirname, "..");
+
 const renderIt = async ({
   logger,
   postDirectory,

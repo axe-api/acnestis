@@ -3,7 +3,6 @@ const fs = require("fs");
 
 module.exports = ({ configuration }) => {
   const templatePath = path.join(
-    process.cwd(),
     process.env.XBLOG_TEMPLATE_FOLDER,
     "_footer.html"
   );

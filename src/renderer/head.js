@@ -3,7 +3,7 @@ const fs = require("fs");
 
 module.exports = ({ title, description, keywords, author }) => {
   const TEMPLATE = fs.readFileSync(
-    path.join(process.cwd(), process.env.XBLOG_TEMPLATE_FOLDER, "_head.html"),
+    path.join(process.env.XBLOG_TEMPLATE_FOLDER, "_head.html"),
     "utf-8"
   );
 

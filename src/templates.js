@@ -3,7 +3,7 @@ const fs = require("fs");
 const glob = require("glob");
 
 const getTemplates = async () => {
-  const src = path.join(process.cwd(), process.env.XBLOG_TEMPLATE_FOLDER);
+  const src = path.join(process.env.XBLOG_TEMPLATE_FOLDER);
   return new Promise((resolve) => {
     glob(path.join(src, "/**/*.html"), (err, files) => {
       if (err) {

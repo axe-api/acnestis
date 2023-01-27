@@ -5,7 +5,7 @@ const { minifyCSS } = require("./renderer/shared");
 const moveAssetsToDistDirectory = (distDirectory) => {
   const assetPath = path.join(
     distDirectory,
-    process.env.XBLOG_ASSET_FOLDER,
+    "assets",
     process.env.XBLOG_CURRENT_VERSION
   );
   // Setting the target directory
@@ -21,7 +21,6 @@ const moveAssetsToDistDirectory = (distDirectory) => {
 
   for (const asset of assetList) {
     const currentPath = path.join(
-      process.cwd(),
       process.env.XBLOG_ASSET_FOLDER,
       process.env.XBLOG_CURRENT_VERSION,
       asset
