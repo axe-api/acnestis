@@ -41,6 +41,7 @@ module.exports = ({
         description: `${configuration.description} ${file.head.title}`,
         keywords: `${configuration.keywords} ${file.head.keywords}`,
         author: file.head?.author ? file.head.author : configuration.author,
+        googleAnalytics: configuration.googleAnalytics,
       })
     )
       .replaceAll("{HEADER}", header(configuration.title))
