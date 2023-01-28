@@ -3,6 +3,7 @@
   --white: rgba(255, 255, 255, 0.95);
   --light-gray: rgba(0, 0, 0, 0.05);
   --gray: rgba(0, 0, 0, 0.3);
+  --semi-black: #444;
   --dark-black: rgba(0, 0, 0, 0.75);
   --pure-black: rgba(0, 0, 0, 0.9);
   --desktop-width: 700px;
@@ -135,10 +136,10 @@ a:hover {
 }
 
 div.year-title {
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 700;
   margin-bottom: 0px;
-  color: var(--gray);
+  color: var(--semi-black);
 }
 
 div.year-links {
