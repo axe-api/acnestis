@@ -1,5 +1,6 @@
 const path = require("path");
 const fs = require("fs");
+const dayjs = require("dayjs");
 const cheerio = require("cheerio");
 const { minifyHTML } = require("./shared");
 const header = require("./header");
@@ -47,6 +48,7 @@ module.exports = ({
       .replaceAll("{HEADER}", header(configuration.title))
       .replaceAll("{BODY}", file.html)
       .replaceAll("{TITLE}", file.head.title)
+      .replaceAll("{DATE}", dayjs(file.head.date).format("DD MMMM YYYY"))
       .replaceAll("{FOOTER}", footer({ configuration }));
     fs.writeFileSync(fileName, minifyHTML(buildContent));
     imageFiles.push(...extractImageUrls(file.html));
