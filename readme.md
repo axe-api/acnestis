@@ -11,6 +11,14 @@ The name Acnestis, meaning the part of the back between the shoulder blades and 
 - Create `config.yml` file which describe your name and the blog description
 - Put GitHub action file to build it.
 
+## What I Promise?
+
+- There will **not** be **theme support** ever.
+- There will **not be** any **extension support** ever.
+- There will **not be** any **complicated logic** like e-commerce, CRM, forms, etc.
+- It will stay **clean**, and **minimalist** ever.
+- It will stay **text-based**.
+
 ## `config.yml`
 
 ```yml
