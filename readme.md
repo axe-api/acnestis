@@ -4,6 +4,8 @@
 
 The name Acnestis, meaning the part of the back between the shoulder blades and the loins which an animal cannot reach to scratch, reflects the tool's goal of providing a simple yet powerful solution to the often complex task of blogging. Whether you're a developer looking to share your thoughts and expertise or just someone who wants to create a personal blog, Acnestis is the perfect tool to help you get started.
 
+[An example blog](https://ozguradem.net)
+
 ## How It Works?
 
 - Create a repository on GitHub (`username.github.io`)
