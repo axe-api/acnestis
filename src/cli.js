@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 
+const { SitemapStream, streamToPromise } = require("sitemap");
+const { Readable } = require("stream");
 const path = require("path");
+const fs = require("fs");
 const assets = require("./assets");
 const config = require("./config");
 const images = require("./images");
@@ -19,6 +22,8 @@ const renderIt = async ({
   distDirectory,
   repositoryDirectory,
 }) => {
+  const LINKS = [{ url: "/", changefreq: "weekly", priority: 1 }];
+
   logger.log("Configurating setup");
   const configuration = config.getConfig();
 
@@ -66,6 +71,7 @@ const renderIt = async ({
 
   logger.log("Index page has been created");
   render.createIndexPage({
+    LINKS,
     configuration,
     INDEX_TEMPLATE,
     HEAD_TEMPLATE,
@@ -81,8 +87,23 @@ const renderIt = async ({
     HEAD_TEMPLATE,
     files,
     distDirectory,
+    LINKS,
   });
   logger.ok();
+
+  logger.log("Creating the sitemap.xml");
+  const sitemap = await toSitemap({ configuration, LINKS });
+  fs.writeFileSync(path.join(distDirectory, "sitemap.xml"), sitemap);
+  logger.ok();
+};
+
+const toSitemap = ({ configuration, LINKS }) => {
+  const stream = new SitemapStream({ hostname: configuration.hostname });
+
+  // Return a promise that resolves with your XML string
+  return streamToPromise(Readable.from(LINKS).pipe(stream)).then((data) =>
+    data.toString()
+  );
 };
 
 const main = async () => {

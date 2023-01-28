@@ -8,7 +8,7 @@ const { minifyHTML } = require("./shared");
 
 const converter = new showdown.Converter();
 
-module.exports = ({ configuration, distDirectory }) => {
+module.exports = ({ configuration, distDirectory, LINKS }) => {
   const aboutPage = path.join(process.cwd(), "about.md");
   if (fs.existsSync(aboutPage) === false) {
     return;
@@ -19,6 +19,8 @@ module.exports = ({ configuration, distDirectory }) => {
     path.join(process.env.XBLOG_TEMPLATE_FOLDER, "index.html"),
     "utf-8"
   );
+
+  LINKS.push({ url: "/about", changefreq: "yearly", priority: 0.8 });
 
   const builded = template
     .replace("{HEAD}", head(configuration))

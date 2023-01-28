@@ -1,6 +1,6 @@
 {
   "name": "acnestis",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "",
   "main": "src/cli.js",
   "bin": {
@@ -38,6 +38,7 @@
     "html-minifier": "^4.0.0",
     "js-yaml": "^4.1.0",
     "showdown": "^2.1.0",
+    "sitemap": "^7.1.1",
     "slugify": "^1.6.5"
   }
 }

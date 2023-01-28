@@ -5,7 +5,7 @@ const header = require("./header");
 const head = require("./head");
 const footer = require("./footer");
 
-const renderPostTemplate = (files) => {
+const renderPostTemplate = ({ files, LINKS }) => {
   files.sort((a, b) => b.head.jsDate.unix() - a.head.jsDate.unix());
 
   const groupByYears = files.reduce((group, file) => {
@@ -20,22 +20,22 @@ const renderPostTemplate = (files) => {
   for (const year of Object.keys(groupByYears).sort((a, b) => b - a)) {
     const items = groupByYears[year];
 
-    result += renderByYear(year, items);
+    result += renderByYear({ year, items, LINKS });
   }
 
   return result;
 };
 
-const renderByYear = (year, items) => {
+const renderByYear = ({ year, items, LINKS }) => {
   return `
     <div class="year-title">${year.trim()}</div>
     <div class="year-links">
-      ${renderItemTitles(items)}
+      ${renderItemTitles({ items, LINKS })}
     </div>
   `;
 };
 
-const renderItemTitles = (items) => {
+const renderItemTitles = ({ items, LINKS }) => {
   return items
     .map((item) => {
       const slug = item.head.slug.replaceAll("/", "");
@@ -45,6 +45,9 @@ const renderItemTitles = (items) => {
         item.head.folderPrefix,
         slug + "/"
       );
+      // for sitemap
+      LINKS.push({ url: link, changefreq: "yearly", priority: 0.5 });
+
       return `
       <div class="link-container">
         <a class="article-link" href="${link}">${item.head.title}</a>
@@ -61,11 +64,12 @@ module.exports = ({
   HEAD_TEMPLATE,
   files,
   distDirectory,
+  LINKS,
 }) => {
   // Setting index
   const content = INDEX_TEMPLATE.replaceAll("{HEAD}", head(configuration))
     .replaceAll("{HEADER}", header(configuration.title))
-    .replaceAll("{POSTS}", renderPostTemplate(files))
+    .replaceAll("{POSTS}", renderPostTemplate({ files, LINKS }))
     .replaceAll("{FOOTER}", footer({ configuration }));
   fs.writeFileSync(path.join(distDirectory, "index.html"), minifyHTML(content));
 };
