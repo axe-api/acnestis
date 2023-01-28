@@ -1,10 +1,11 @@
 {
   "name": "acnestis",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "",
   "main": "src/cli.js",
   "bin": {
-    "acnestis": "./src/cli.js"
+    "acnestis": "./src/cli.js",
+    "dev": "nodemon ./src/cli.js"
   },
   "scripts": {
     "dev": "nodemon index.js",
