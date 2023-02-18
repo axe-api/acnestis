@@ -28,7 +28,7 @@ title: Your blog title
 description: The dead-simple blog ever
 keywords: your blog, awesome
 author: Your name
-footer: acnestis - 2023
+footer: <a href="https://github.com/axe-api/acnestis" target="_blank">acnestis - 2023</a>
 hostname: https://yoursite.com
 theme: both
 ```
