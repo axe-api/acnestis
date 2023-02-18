@@ -68,8 +68,12 @@ module.exports = ({
 }) => {
   // Setting index
   const content = INDEX_TEMPLATE.replaceAll("{HEAD}", head(configuration))
-    .replaceAll("{HEADER}", header(configuration.title))
+    .replaceAll("{HEADER}", header({ configuration }))
     .replaceAll("{POSTS}", renderPostTemplate({ files, LINKS }))
-    .replaceAll("{FOOTER}", footer({ configuration }));
+    .replaceAll("{FOOTER}", footer({ configuration }))
+    .replaceAll(
+      "{SELECTED_THEME}",
+      configuration.theme === "both" ? "" : `theme-${configuration.theme}`
+    );
   fs.writeFileSync(path.join(distDirectory, "index.html"), minifyHTML(content));
 };

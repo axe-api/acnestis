@@ -24,7 +24,7 @@ module.exports = ({ configuration, distDirectory, LINKS }) => {
 
   const builded = template
     .replace("{HEAD}", head(configuration))
-    .replaceAll("{HEADER}", header(configuration.title))
+    .replaceAll("{HEADER}", header({ configuration }))
     .replaceAll("{POSTS}", content)
     .replaceAll("{FOOTER}", footer({ configuration }));
 
