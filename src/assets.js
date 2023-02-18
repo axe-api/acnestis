@@ -17,6 +17,9 @@ const moveAssetsToDistDirectory = (distDirectory) => {
     "styles.css",
     "highlight.min.js",
     "tokyo-night-dark.min.css",
+    "favicon.svg",
+    "moon.svg",
+    "sun.svg",
   ];
 
   for (const asset of assetList) {

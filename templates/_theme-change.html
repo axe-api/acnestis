@@ -1,0 +1,44 @@
+<script>
+  function toggleTheme() {
+    const body = document.getElementsByTagName("body");
+    if (document.body.classList.contains("theme-dark")) {
+      localStorage.setItem("theme", "light");
+      document.body.classList.remove("theme-dark");
+      document.body.classList.add("theme-light");
+      document.getElementById("themeBadge").classList.remove("dark");
+      document.getElementById("themeBadge").classList.add("light");
+      document
+        .getElementById("themeImage")
+        .setAttribute("src", "/assets/v01/sun.svg");
+    } else {
+      localStorage.setItem("theme", "dark");
+      document.body.classList.add("theme-dark");
+      document.body.classList.remove("theme-light");
+      document.getElementById("themeBadge").classList.add("dark");
+      document.getElementById("themeBadge").classList.remove("light");
+      document
+        .getElementById("themeImage")
+        .setAttribute("src", "/assets/v01/moon.svg");
+    }
+  }
+
+  (() => {
+    const selectedTheme = localStorage.getItem("theme");
+    const isDark = selectedTheme
+      ? selectedTheme === "dark"
+      : window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (isDark) {
+      document.body.classList.add("theme-dark");
+      document.getElementById("themeBadge").classList.add("dark");
+    } else {
+      document.body.classList.remove("theme-dark");
+      document.body.classList.add("theme-light");
+      document.getElementById("themeBadge").classList.remove("dark");
+      document.getElementById("themeBadge").classList.add("light");
+      document
+        .getElementById("themeImage")
+        .setAttribute("src", "/assets/v01/sun.svg");
+    }
+  })();
+</script>

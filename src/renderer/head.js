@@ -8,13 +8,15 @@ module.exports = ({
   keywords,
   author,
   googleAnalytics,
+  lang = "en",
 }) => {
   const TEMPLATE = fs.readFileSync(
     path.join(process.env.XBLOG_TEMPLATE_FOLDER, "_head.html"),
     "utf-8"
   );
 
-  return TEMPLATE.replaceAll("{TITLE}", title)
+  return TEMPLATE.replaceAll("{LANG}", lang)
+    .replaceAll("{TITLE}", title)
     .replaceAll("{DESCRIPTION}", description)
     .replaceAll("{KEYWORDS}", keywords)
     .replaceAll("{AUTHOR}", author)

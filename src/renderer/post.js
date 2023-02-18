@@ -43,9 +43,10 @@ module.exports = ({
         keywords: `${configuration.keywords} ${file.head.keywords}`,
         author: file.head?.author ? file.head.author : configuration.author,
         googleAnalytics: configuration.googleAnalytics,
+        lang: (file.head.lang || configuration.lang || "en").trim(),
       })
     )
-      .replaceAll("{HEADER}", header(configuration.title))
+      .replaceAll("{HEADER}", header({ configuration }))
       .replaceAll("{BODY}", file.html)
       .replaceAll("{TITLE}", file.head.title)
       .replaceAll("{DATE}", dayjs(file.head.date).format("DD MMMM YYYY"))

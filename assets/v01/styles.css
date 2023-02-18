@@ -7,6 +7,18 @@
     --semi-color: rgba(255, 255, 255, 0.6);
     --text-color: rgba(255, 255, 255, 0.85);
     --pure-color: rgba(255, 255, 255, 0.95);
+    --theme-background: #393a39;
+  }
+
+  body.theme-light {
+    --link-color: #007fc5;
+    --background: rgba(255, 255, 255);
+    --light-color: rgba(0, 0, 0, 0.05);
+    --middle-color: rgba(0, 0, 0, 0.3);
+    --semi-color: #444;
+    --text-color: rgba(0, 0, 0, 0.75);
+    --pure-color: rgba(0, 0, 0, 0.9);
+    --theme-background: #f0f1f1;
   }
 }
 
@@ -19,6 +31,18 @@
     --semi-color: #444;
     --text-color: rgba(0, 0, 0, 0.75);
     --pure-color: rgba(0, 0, 0, 0.9);
+    --theme-background: #f0f1f1;
+  }
+
+  body.theme-dark {
+    --link-color: #969bf2;
+    --background: rgb(36, 36, 36);
+    --light-color: rgba(255, 255, 255, 0.1);
+    --middle-color: rgba(255, 255, 255, 0.4);
+    --semi-color: rgba(255, 255, 255, 0.6);
+    --text-color: rgba(255, 255, 255, 0.85);
+    --pure-color: rgba(255, 255, 255, 0.95);
+    --theme-background: #393a39;
   }
 }
 
@@ -72,16 +96,68 @@ div.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
 }
 
-div.header > a.about {
+div.header > a.title {
+  flex-grow: 2;
+}
+
+div.header > div.about > a.about {
   font-size: 18px;
   font-weight: 500;
   color: var(--text-color);
 }
 
-div.header > a.about:hover {
+div.header > div.about > a.about:hover {
   text-decoration: underline;
+}
+
+div.header > button.theme-change {
+  background-color: var(--theme-background);
+  border: 1px solid var(--light-color);
+  border-radius: 22px;
+  height: 22px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0px;
+  position: relative;
+  transition: all 0.2s;
+}
+
+div.header > button.theme-change:focus {
+  outline: 0;
+}
+
+div.header > button.theme-change > div.theme-badge {
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+div.header > button.theme-change > div.dark {
+  background-color: #1a1a1a;
+  position: absolute;
+  left: 1px;
+  transition: all 0.2s;
+}
+
+div.header > button.theme-change > div.light {
+  background-color: white;
+  position: absolute;
+  right: 1px;
+  transition: all 0.2s;
+}
+
+div.header > button.theme-change > div.theme-badge > img {
+  height: 12px;
+  width: 12px;
 }
 
 div.header > a {

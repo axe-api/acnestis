@@ -28,9 +28,19 @@ title: Your blog title
 description: The dead-simple blog ever
 keywords: your blog, awesome
 author: Your name
-footer: acnestis - 2023
+footer: <a href="https://github.com/axe-api/acnestis" target="_blank">acnestis - 2023</a>
 hostname: https://yoursite.com
+lang: en
+theme: both
 ```
+
+## Theme Support
+
+Acnestis supports dark and light themes. You can manage themes with the `theme` configuration;
+
+- `theme: both`: Users can decide the theme.
+- `theme: dark`: Only dark theme.
+- `theme: light`: Only light theme.
 
 ## GitHub Action
 
