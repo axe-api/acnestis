@@ -30,7 +30,16 @@ keywords: your blog, awesome
 author: Your name
 footer: acnestis - 2023
 hostname: https://yoursite.com
+theme: both
 ```
+
+## Theme Support
+
+Acnestis supports dark and light themes. You can manage themes with the `theme` configuration;
+
+- `theme: both`: Users can decide the theme.
+- `theme: dark`: Only dark theme.
+- `theme: light`: Only light theme.
 
 ## GitHub Action
 
