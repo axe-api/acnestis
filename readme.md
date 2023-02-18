@@ -30,6 +30,7 @@ keywords: your blog, awesome
 author: Your name
 footer: <a href="https://github.com/axe-api/acnestis" target="_blank">acnestis - 2023</a>
 hostname: https://yoursite.com
+lang: en
 theme: both
 ```
 
