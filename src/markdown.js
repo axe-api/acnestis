@@ -88,6 +88,7 @@ const splitBlogPost = (fileContent) => {
       description: head?.description || null,
       meta: head?.meta,
       keywords: head?.keywords || "",
+      lang: head?.lang || "",
     },
     content,
   };

@@ -43,6 +43,7 @@ module.exports = ({
         keywords: `${configuration.keywords} ${file.head.keywords}`,
         author: file.head?.author ? file.head.author : configuration.author,
         googleAnalytics: configuration.googleAnalytics,
+        lang: (file.head.lang || configuration.lang || "en").trim(),
       })
     )
       .replaceAll("{HEADER}", header(configuration.title))
