@@ -35,15 +35,25 @@ module.exports = ({
       "index.html"
     );
 
+    if (!file.head?.description) {
+      console.warn(`Missing post description: ${file.head.title.trim()}`);
+    }
+
     const buildContent = POST_TEMPLATE.replaceAll(
       "{HEAD}",
       head({
-        title: `${configuration.title} - ${file.head.title}`,
-        description: `${configuration.description} ${file.head.title}`,
-        keywords: `${configuration.keywords} ${file.head.keywords}`,
-        author: file.head?.author ? file.head.author : configuration.author,
-        googleAnalytics: configuration.googleAnalytics,
-        lang: (file.head.lang || configuration.lang || "en").trim(),
+        configuration: {
+          title: `${configuration.title} - ${file.head.title.trim()}`,
+          description: (
+            file.head?.description ||
+            configuration?.description ||
+            ""
+          ).trim(),
+          keywords: `${configuration.keywords} ${file.head.keywords}`,
+          author: file.head?.author ? file.head.author : configuration.author,
+          googleAnalytics: configuration.googleAnalytics,
+          lang: (file.head.lang || configuration.lang || "en").trim(),
+        },
       })
     )
       .replaceAll("{HEADER}", header({ configuration }))

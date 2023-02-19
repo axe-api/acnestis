@@ -23,7 +23,7 @@ module.exports = ({ configuration, distDirectory, LINKS }) => {
   LINKS.push({ url: "/about", changefreq: "yearly", priority: 0.8 });
 
   const builded = template
-    .replace("{HEAD}", head(configuration))
+    .replace("{HEAD}", head({ configuration }))
     .replaceAll("{HEADER}", header({ configuration }))
     .replaceAll("{POSTS}", content)
     .replaceAll("{FOOTER}", footer({ configuration }));

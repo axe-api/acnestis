@@ -67,7 +67,7 @@ module.exports = ({
   LINKS,
 }) => {
   // Setting index
-  const content = INDEX_TEMPLATE.replaceAll("{HEAD}", head(configuration))
+  const content = INDEX_TEMPLATE.replaceAll("{HEAD}", head({ configuration }))
     .replaceAll("{HEADER}", header({ configuration }))
     .replaceAll("{POSTS}", renderPostTemplate({ files, LINKS }))
     .replaceAll("{FOOTER}", footer({ configuration }))
